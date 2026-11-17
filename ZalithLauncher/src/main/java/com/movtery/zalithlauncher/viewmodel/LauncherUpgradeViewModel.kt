@@ -85,6 +85,12 @@ private const val LATEST_API_URL = "$URL_PROJECT_INFO/$LATEST_VERSION"
 private const val LATEST_API_CHINESE_URL = "https://repo.miawa.cn/zalith-info/v2/$LATEST_VERSION"
 
 /**
+ * Eon Launcher: the feeds above describe ZalithLauncher releases, not Eon releases, so querying them
+ * would offer Eon users an "upgrade" to a different app. Keep this false until Eon has its own feed.
+ */
+private const val UPGRADE_FEED_ENABLED = false
+
+/**
  * 用于记录启动器更新 ViewModel
  */
 class LauncherUpgradeViewModel: ViewModel() {
@@ -191,6 +197,7 @@ class LauncherUpgradeViewModel: ViewModel() {
      */
     private suspend fun fetchRemoteData(): RemoteData? {
         return withContext(Dispatchers.IO) {
+            if (!UPGRADE_FEED_ENABLED) return@withContext null
             runCatching {
                 withRetry(logTag = "LauncherUpgrade", maxRetries = 2) {
                     //获取最新的启动器信息

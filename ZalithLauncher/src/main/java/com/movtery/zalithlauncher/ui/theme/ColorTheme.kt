@@ -32,6 +32,7 @@ data class ColorTheme(
 
 enum class ColorThemeType {
     DYNAMIC,
+    EON,
     EMBERMIRE,
     VELVET_ROSE,
     MISTWAVE,

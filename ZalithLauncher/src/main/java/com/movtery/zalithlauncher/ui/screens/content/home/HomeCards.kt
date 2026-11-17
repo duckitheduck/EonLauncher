@@ -97,8 +97,26 @@ object HomeCards {
 
     /** 系统卡片（不可变更） */
     fun systemCards(): List<SystemCard> = buildList {
+        add(unofficialVersionCard())
         if (BuildConfig.DEBUG) {
             add(debugWarningCard())
+        }
+    }
+
+    /**
+     * Required by the project's license terms: a modified distribution must state that it is
+     * an unofficial modified version on the main interface.
+     */
+    private fun unofficialVersionCard() = SystemCard(id = "system_unofficial_version") {
+        BackgroundCard(
+            modifier = Modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.extraLarge
+        ) {
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                text = stringResource(R.string.unofficial_modified_version, BuildKeys.LAUNCHER_NAME),
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 
