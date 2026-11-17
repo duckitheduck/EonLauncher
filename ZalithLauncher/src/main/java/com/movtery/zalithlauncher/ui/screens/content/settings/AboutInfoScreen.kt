@@ -148,7 +148,7 @@ fun AboutInfoScreen(
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         val launcherName = remember { launcherName() }
 
-                        ButtonIconItem(
+                                                ButtonIconItem(
                             icon = painterResource(R.drawable.img_sponsor),
                             title = stringResource(R.string.about_sponsors_title),
                             text = stringResource(R.string.about_sponsors_summary, launcherName),
@@ -160,7 +160,7 @@ fun AboutInfoScreen(
                                 }
                             }
                         )
-
+                                                
                         ButtonIconItem(
                             icon = painterResource(R.drawable.img_avatar_bangbang93),
                             title = "bangbang93",
