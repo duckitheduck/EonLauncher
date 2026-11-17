@@ -233,7 +233,7 @@ class MainActivity : BaseAppCompatActivity() {
             }
         }
 
-        //拉取当月赞助者数据
+                //拉取当月赞助者数据
         lifecycleScope.launch {
             sponsorsViewModel.loadOnStart(
                 showLastMonth = GuideProgress.isPlayed(GuideKeys.Main) && !isImporting
