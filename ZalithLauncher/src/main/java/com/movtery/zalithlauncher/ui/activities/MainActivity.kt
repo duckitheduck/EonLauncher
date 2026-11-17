@@ -415,7 +415,7 @@ class MainActivity : BaseAppCompatActivity() {
                     }
                 }
 
-                //显示赞助支持的小弹窗
+                                //显示赞助支持的小弹窗
                 if (!isImporting && finishedGame.state >= 100 && showSponsorship.state) {
                     SimpleAlertDialog(
                         title = stringResource(R.string.about_sponsor),
