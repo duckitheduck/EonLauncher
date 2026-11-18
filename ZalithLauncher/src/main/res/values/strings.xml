@@ -130,6 +130,15 @@
     <string name="launcher_version_debug_warning_cant_close">This warning cannot be dismissed</string>
     <!-- Option of the theme color setting in launcher settings -->
     <string name="theme_color_dynamic">Dynamic (Android 12+)</string>
+    <!-- Eon Launcher: interface style and Liquid Glass quality (Launcher settings) -->
+    <string name="settings_launcher_ui_style_title">Interface style</string>
+    <string name="settings_launcher_ui_style_summary">Liquid Glass uses translucent, glossy surfaces over a soft backdrop. Normal is the standard flat look.</string>
+    <string name="ui_style_normal">Normal</string>
+    <string name="ui_style_liquid_glass">Liquid Glass</string>
+    <string name="settings_launcher_glass_quality_title">Liquid Glass quality</string>
+    <string name="settings_launcher_glass_quality_summary">Optimized: static glass, lowest GPU and battery cost. Fancy: adds highlights and a slowly drifting backdrop, which uses more power.</string>
+    <string name="glass_quality_optimized">Optimized</string>
+    <string name="glass_quality_fancy">Fancy</string>
     <!-- Name of the default Eon color theme -->
     <string name="theme_color_eon">Eon</string>
     <!-- Option of the theme color setting in launcher settings -->

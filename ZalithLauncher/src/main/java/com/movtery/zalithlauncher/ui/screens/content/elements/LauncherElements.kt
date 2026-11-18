@@ -85,6 +85,8 @@ import com.movtery.zalithlauncher.game.version.installed.utils.isBiggerVer
 import com.movtery.zalithlauncher.game.version.installed.utils.isLowerVer
 import com.movtery.zalithlauncher.setting.LauncherSettings
 import com.movtery.zalithlauncher.setting.enums.BackgroundBlur
+import com.movtery.zalithlauncher.setting.enums.UiStyle
+import com.movtery.zalithlauncher.ui.components.LiquidBackdrop
 import com.movtery.zalithlauncher.ui.AndroidStringText
 import com.movtery.zalithlauncher.ui.androidText
 import com.movtery.zalithlauncher.ui.components.ButtonPosition
@@ -599,6 +601,11 @@ fun Background(
                 whiteOverlayAlpha = if (backgroundBlurEnabled) whiteOverlayAlpha(blur) else 0f
             )
     ) {
+        //Eon Launcher: without a custom wallpaper, Liquid Glass gets a soft built-in backdrop to sit on
+        if (!viewModel.isValid && LauncherSettings.launcherUiStyle.state == UiStyle.LIQUID_GLASS) {
+            LiquidBackdrop(modifier = Modifier.fillMaxSize())
+        }
+
         if (viewModel.isValid) {
             when {
                 viewModel.isVideo && allowVideo -> {

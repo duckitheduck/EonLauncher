@@ -23,6 +23,8 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.movtery.zalithlauncher.setting.LauncherSettings
+import com.movtery.zalithlauncher.setting.enums.UiStyle
 import com.movtery.zalithlauncher.setting.enums.isLauncherInDarkTheme
 import com.movtery.zalithlauncher.ui.components.influencedByBackgroundColor
 
@@ -65,6 +67,10 @@ fun itemColor(
     influencedByBackground: Boolean = true,
     isDark: Boolean = isLauncherInDarkTheme()
 ): Color {
+    //Eon Launcher: inside Liquid Glass cards a row is only a faint tint, so the glass shows through
+    if (influencedByBackground && LauncherSettings.launcherUiStyle.state == UiStyle.LIQUID_GLASS) {
+        return MaterialTheme.colorScheme.onSurface.copy(alpha = if (isDark) 0.04f else 0.05f)
+    }
     return influencedByBackgroundColor(
         color = if (isDark) {
             MaterialTheme.colorScheme.surfaceVariant

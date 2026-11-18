@@ -40,6 +40,18 @@ import com.movtery.zalithlauncher.ui.theme.cardColor
 import com.movtery.zalithlauncher.ui.theme.cardTitleColor
 import com.movtery.zalithlauncher.ui.theme.onCardColor
 
+/**
+ * Eon Launcher: the card container becomes transparent; the glass fill is drawn by [liquidGlass] instead,
+ * so the card's own tint (see [CardColors.containerColor]) is reused as the glass tint.
+ */
+@Composable
+private fun CardColors.asGlassColors(): CardColors = CardDefaults.cardColors(
+    containerColor = Color.Transparent,
+    contentColor = contentColor,
+    disabledContainerColor = Color.Transparent,
+    disabledContentColor = disabledContentColor
+)
+
 @Composable
 private fun flatCardElevation() = CardDefaults.cardElevation(
     defaultElevation = 0.dp,
@@ -68,15 +80,19 @@ fun BackgroundCard(
     border: BorderStroke? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val glass = rememberGlassSpec()
+    val glassOn = glass.enabled && influencedByBackground
     Card(
         modifier = modifier,
         shape = shape,
-        colors = colors,
+        colors = if (glassOn) colors.asGlassColors() else colors,
         elevation = elevation,
         border = border,
     ) {
         Column(
-            modifier = Modifier.backgroundGlass(blur, colors.containerColor, influencedByBackground),
+            modifier = Modifier
+                .backgroundGlass(blur, colors.containerColor, influencedByBackground)
+                .then(if (glassOn) Modifier.liquidGlass(colors.containerColor, shape, glass) else Modifier),
             content = content
         )
     }
@@ -103,17 +119,21 @@ fun BackgroundCard(
     enabled: Boolean = true,
     content: @Composable @UiComposable ColumnScope.() -> Unit
 ) {
+    val glass = rememberGlassSpec()
+    val glassOn = glass.enabled && influencedByBackground
     Card(
         modifier = modifier,
         shape = shape,
-        colors = colors,
+        colors = if (glassOn) colors.asGlassColors() else colors,
         elevation = elevation,
         border = border,
         onClick = onClick,
         enabled = enabled,
     ) {
         Column(
-            modifier = Modifier.backgroundGlass(blur, colors.containerColor, influencedByBackground),
+            modifier = Modifier
+                .backgroundGlass(blur, colors.containerColor, influencedByBackground)
+                .then(if (glassOn) Modifier.liquidGlass(colors.containerColor, shape, glass) else Modifier),
             content = content
         )
     }
@@ -139,9 +159,10 @@ fun CardTitleLayout(
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
+        val glass = rememberGlassSpec()
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = color,
+            color = if (glass.enabled && influencedByBackground) color.copy(alpha = color.alpha * 0.5f) else color,
             contentColor = contentColor,
         ) {
             Column(

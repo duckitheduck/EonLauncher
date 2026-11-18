@@ -25,6 +25,8 @@ import com.materialkolor.PaletteStyle
 import com.movtery.zalithlauncher.setting.enums.ActionMenuSide
 import com.movtery.zalithlauncher.setting.enums.AppLanguage
 import com.movtery.zalithlauncher.setting.enums.BackgroundBlur
+import com.movtery.zalithlauncher.setting.enums.GlassQuality
+import com.movtery.zalithlauncher.setting.enums.UiStyle
 import com.movtery.zalithlauncher.setting.enums.DarkMode
 import com.movtery.zalithlauncher.setting.enums.MirrorSourceType
 import com.movtery.zalithlauncher.ui.theme.ColorThemeType
@@ -53,6 +55,16 @@ object LauncherSettings : SettingsRegistry() {
      * 启动器UI深色主题
      */
     val launcherDarkMode = enumSetting("launcherDarkMode", DarkMode.FollowSystem)
+
+    /**
+     * Eon Launcher: interface style (Normal / Liquid Glass)
+     */
+    val launcherUiStyle = enumSetting("launcherUiStyle", UiStyle.LIQUID_GLASS)
+
+    /**
+     * Eon Launcher: Liquid Glass quality (Optimized / Fancy)
+     */
+    val liquidGlassQuality = enumSetting("liquidGlassQuality", GlassQuality.OPTIMIZED)
 
     /**
      * 启动器语言

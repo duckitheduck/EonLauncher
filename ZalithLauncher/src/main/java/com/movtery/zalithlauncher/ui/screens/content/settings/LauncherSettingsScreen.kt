@@ -79,6 +79,8 @@ import com.movtery.zalithlauncher.setting.LauncherSettings
 import com.movtery.zalithlauncher.setting.enums.AppLanguage
 import com.movtery.zalithlauncher.setting.enums.BackgroundBlur
 import com.movtery.zalithlauncher.setting.enums.DarkMode
+import com.movtery.zalithlauncher.setting.enums.GlassQuality
+import com.movtery.zalithlauncher.setting.enums.UiStyle
 import com.movtery.zalithlauncher.setting.enums.MirrorSourceType
 import com.movtery.zalithlauncher.setting.enums.applyLanguage
 import com.movtery.zalithlauncher.setting.unit.floatRange
@@ -198,6 +200,27 @@ fun LauncherSettingsScreen(
                         unit = LauncherSettings.launcherDarkMode,
                         items = DarkMode.entries,
                         title = stringResource(R.string.settings_launcher_dark_mode_title),
+                        getItemText = { stringResource(it.textRes) }
+                    )
+
+                    ListSettingsCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        position = CardPosition.Middle,
+                        unit = LauncherSettings.launcherUiStyle,
+                        items = UiStyle.entries,
+                        title = stringResource(R.string.settings_launcher_ui_style_title),
+                        summary = stringResource(R.string.settings_launcher_ui_style_summary),
+                        getItemText = { stringResource(it.textRes) }
+                    )
+
+                    ListSettingsCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        position = CardPosition.Middle,
+                        unit = LauncherSettings.liquidGlassQuality,
+                        items = GlassQuality.entries,
+                        title = stringResource(R.string.settings_launcher_glass_quality_title),
+                        summary = stringResource(R.string.settings_launcher_glass_quality_summary),
+                        enabled = LauncherSettings.launcherUiStyle.state == UiStyle.LIQUID_GLASS,
                         getItemText = { stringResource(it.textRes) }
                     )
 
