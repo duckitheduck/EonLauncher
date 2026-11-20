@@ -194,7 +194,10 @@ fun LiquidBackdrop(modifier: Modifier = Modifier) {
     val c1 = if (dark) scheme.primaryContainer else scheme.primary
     val c2 = if (dark) scheme.tertiaryContainer else scheme.tertiary
     val c3 = if (dark) scheme.secondaryContainer else scheme.secondary
-    val strength = if (dark) 0.50f else 0.24f
+    //Per-blob strengths verified against the card/text colors (>= 4.5:1 even where two blobs overlap)
+    val s1 = if (dark) 0.78f else 0.36f
+    val s2 = if (dark) 0.60f else 0.32f
+    val s3 = if (dark) 0.58f else 0.30f
 
     Box(
         modifier = modifier
@@ -203,11 +206,11 @@ fun LiquidBackdrop(modifier: Modifier = Modifier) {
             .drawBehind {
                 //read inside the draw phase: drift only redraws this layer, it never recomposes anything
                 val a = phase.floatValue * 2f * PI.toFloat()
-                glassBlob(c1, 0.12f + 0.06f * sin(a), 0.08f + 0.05f * cos(a), 0.75f, strength)
-                glassBlob(c2, 0.92f - 0.06f * cos(a), 0.30f + 0.06f * sin(a), 0.65f, strength * 0.9f)
-                glassBlob(c3, 0.35f + 0.07f * sin(a + 2f), 1.02f - 0.05f * cos(a), 0.70f, strength * 0.8f)
+                glassBlob(c1, 0.10f + 0.06f * sin(a), 0.10f + 0.05f * cos(a), 0.55f, s1)
+                glassBlob(c2, 0.92f - 0.06f * cos(a), 0.32f + 0.06f * sin(a), 0.50f, s2)
+                glassBlob(c3, 0.38f + 0.07f * sin(a + 2f), 1.00f - 0.05f * cos(a), 0.55f, s3)
                 if (fancy) {
-                    glassBlob(c1, 0.75f + 0.05f * cos(a + 1f), 0.85f, 0.45f, strength * 0.7f)
+                    glassBlob(c1, 0.78f + 0.05f * cos(a + 1f), 0.88f, 0.38f, s1 * 0.7f)
                 }
             }
     )

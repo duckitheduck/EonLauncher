@@ -19,6 +19,7 @@
 package com.movtery.zalithlauncher.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,7 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.UiComposable
 import androidx.compose.ui.graphics.Color
@@ -121,14 +123,16 @@ fun BackgroundCard(
 ) {
     val glass = rememberGlassSpec()
     val glassOn = glass.enabled && influencedByBackground
+    val interactionSource = remember { MutableInteractionSource() }
     Card(
-        modifier = modifier,
+        modifier = modifier.bouncyPress(interactionSource, pressedScale = 0.97f),
         shape = shape,
         colors = if (glassOn) colors.asGlassColors() else colors,
         elevation = elevation,
         border = border,
         onClick = onClick,
         enabled = enabled,
+        interactionSource = interactionSource,
     ) {
         Column(
             modifier = Modifier

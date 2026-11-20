@@ -67,6 +67,16 @@ object LauncherSettings : SettingsRegistry() {
     val liquidGlassQuality = enumSetting("liquidGlassQuality", GlassQuality.OPTIMIZED)
 
     /**
+     * Eon Launcher: springy overshoot on page entrances, button/card presses and the navigation rail
+     */
+    val launcherBouncyMotion = boolSetting("launcherBouncyMotion", true)
+
+    /**
+     * Eon Launcher: show the glass navigation rail (Home, Versions, Downloads, Settings, About Eon)
+     */
+    val launcherNavRail = boolSetting("launcherNavRail", true)
+
+    /**
      * 启动器语言
      */
     val launcherLanguage = enumSetting("launcherLanguage", AppLanguage.FOLLOW_SYSTEM)

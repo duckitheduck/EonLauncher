@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.movtery.zalithlauncher.setting.LauncherSettings
 import com.movtery.zalithlauncher.utils.animation.EaseOutFluent
 import com.movtery.zalithlauncher.utils.animation.EnterTranslateEasing
 import com.movtery.zalithlauncher.utils.animation.SwapTimeline
@@ -164,7 +165,7 @@ private fun swapAnimateProgressAsState(
         tween(
             durationMillis = SwapTimeline.swapTime(SwapTimeline.ENTER_ITEM),
             delayMillis = SwapTimeline.enterStagger(index) + SwapTimeline.swapTime(extraDelayMillis),
-            easing = EnterTranslateEasing
+            easing = if (LauncherSettings.launcherBouncyMotion.state) BounceEnterEasing else EnterTranslateEasing
         )
     } else {
         tween(

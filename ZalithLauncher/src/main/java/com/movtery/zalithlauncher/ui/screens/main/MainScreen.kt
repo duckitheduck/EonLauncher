@@ -80,6 +80,7 @@ import com.movtery.zalithlauncher.game.version.installed.Version
 import com.movtery.zalithlauncher.game.version.installed.VersionsManager
 import com.movtery.zalithlauncher.path.PathManager
 import com.movtery.zalithlauncher.setting.LauncherSettings
+import com.movtery.zalithlauncher.setting.enums.UiStyle
 import com.movtery.zalithlauncher.ui.AndroidStringText
 import com.movtery.zalithlauncher.ui.androidText
 import com.movtery.zalithlauncher.ui.components.BackgroundCard
@@ -161,9 +162,21 @@ fun MainScreen(
     val isBackgroundValid = LocalBackgroundViewModel.current?.isValid == true
     val launcherBackgroundOpacity = LauncherSettings.launcherBackgroundOpacity.state.toFloat() / 100f
 
-    val backgroundColor = if (isBackgroundValid) {
-        backgroundColor().copy(alpha = launcherBackgroundOpacity)
-    } else backgroundColor()
+    val glassBackdrop = LauncherSettings.launcherUiStyle.state == UiStyle.LIQUID_GLASS
+    //Eon Launcher: with Liquid Glass and no custom wallpaper the root must be transparent,
+    //otherwise this surface would hide the glass backdrop drawn underneath
+    val backgroundColor = when {
+        isBackgroundValid -> backgroundColor().copy(alpha = launcherBackgroundOpacity)
+        glassBackdrop -> Color.Transparent
+        else -> backgroundColor()
+    }
+
+    val railVisible = LauncherSettings.launcherNavRail.state
+    val settingsChildKey = (mainScreenKey as? BackStackNavKey<*>)?.currentKey
+    val inAboutScreen = mainScreenKey is NestedNavKey.Settings && settingsChildKey is NormalNavKey.Settings.AboutInfo
+    val inSettingsOnly = mainScreenKey is NestedNavKey.Settings && !inAboutScreen
+    val inVersionsScreen = mainScreenKey is NormalNavKey.VersionsManager || mainScreenKey is NestedNavKey.VersionSettings
+    val inDownloadsScreen = mainScreenKey is NestedNavKey.Download
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -214,11 +227,56 @@ fun MainScreen(
                 },
             )
 
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
             ) {
+                if (railVisible) {
+                    EonNavigationRail(
+                        modifier = Modifier.padding(start = 8.dp, end = 4.dp, bottom = 8.dp),
+                        homeSelected = inLauncherScreen,
+                        versionsSelected = inVersionsScreen,
+                        downloadsSelected = inDownloadsScreen,
+                        settingsSelected = inSettingsOnly,
+                        aboutSelected = inAboutScreen,
+                        onHome = { if (!inLauncherScreen) toMainScreen() },
+                        onVersions = {
+                            if (!inVersionsScreen) {
+                                screenBackStackModel.mainScreen.removeAndNavigateTo(
+                                    removes = screenBackStackModel.clearBeforeNavKeys,
+                                    screenKey = NormalNavKey.VersionsManager
+                                )
+                            }
+                        },
+                        onDownloads = {
+                            if (!inDownloadsScreen) screenBackStackModel.navigateToDownload()
+                        },
+                        onSettings = {
+                            if (!inSettingsOnly) {
+                                screenBackStackModel.mainScreen.removeAndNavigateTo(
+                                    removes = screenBackStackModel.clearBeforeNavKeys,
+                                    screenKey = screenBackStackModel.settingsScreen
+                                )
+                            }
+                        },
+                        onAbout = {
+                            if (!inAboutScreen) {
+                                screenBackStackModel.settingsScreen.clearWith(NormalNavKey.Settings.AboutInfo)
+                                screenBackStackModel.mainScreen.removeAndNavigateTo(
+                                    removes = screenBackStackModel.clearBeforeNavKeys,
+                                    screenKey = screenBackStackModel.settingsScreen
+                                )
+                            }
+                        }
+                    )
+                }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(1f)
+                ) {
                 NavStateHost(rootKey = screenBackStackModel.mainScreen) {
                     NavigationUI(
                         modifier = Modifier.fillMaxSize(),
@@ -240,6 +298,7 @@ fun MainScreen(
                         .padding(all = 6.dp)
                 ) {
                     changeTasksExpandedState()
+                }
                 }
             }
         }

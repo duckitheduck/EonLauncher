@@ -224,6 +224,22 @@ fun LauncherSettingsScreen(
                         getItemText = { stringResource(it.textRes) }
                     )
 
+                    SwitchSettingsCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        position = CardPosition.Middle,
+                        unit = LauncherSettings.launcherBouncyMotion,
+                        title = stringResource(R.string.settings_launcher_bouncy_motion_title),
+                        summary = stringResource(R.string.settings_launcher_bouncy_motion_summary)
+                    )
+
+                    SwitchSettingsCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        position = CardPosition.Middle,
+                        unit = LauncherSettings.launcherNavRail,
+                        title = stringResource(R.string.settings_launcher_nav_rail_title),
+                        summary = stringResource(R.string.settings_launcher_nav_rail_summary)
+                    )
+
                     ListSettingsCard(
                         modifier = Modifier.fillMaxWidth(),
                         position = CardPosition.Middle,

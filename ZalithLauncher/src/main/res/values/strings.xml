@@ -139,6 +139,15 @@
     <string name="settings_launcher_glass_quality_summary">Optimized: static glass, lowest GPU and battery cost. Fancy: adds highlights and a slowly drifting backdrop, which uses more power.</string>
     <string name="glass_quality_optimized">Optimized</string>
     <string name="glass_quality_fancy">Fancy</string>
+    <string name="settings_launcher_bouncy_motion_title">Bouncy animations</string>
+    <string name="settings_launcher_bouncy_motion_summary">Springy overshoot on page entrances, presses and the navigation rail. Turn off for plain, calmer motion.</string>
+    <string name="settings_launcher_nav_rail_title">Navigation rail</string>
+    <string name="settings_launcher_nav_rail_summary">Show a glass side rail with Home, Versions, Downloads, Settings and About Eon.</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_versions">Versions</string>
+    <string name="nav_downloads">Downloads</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about_eon">About Eon</string>
     <!-- Name of the default Eon color theme -->
     <string name="theme_color_eon">Eon</string>
     <!-- Option of the theme color setting in launcher settings -->

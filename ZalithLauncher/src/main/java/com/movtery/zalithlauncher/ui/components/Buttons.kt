@@ -93,7 +93,7 @@ fun ScalingActionButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale = animateFloatAsState(
         targetValue = if (isPressed) 0.95f else 1f,
-        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
+        animationSpec = bouncyOr<Float>(MaterialTheme.motionScheme.fastSpatialSpec()),
         label = "ButtonScale"
     )
 
@@ -129,7 +129,7 @@ fun ScalingIconButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale = animateFloatAsState(
         targetValue = if (isPressed) 0.95f else 1f,
-        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
+        animationSpec = bouncyOr<Float>(MaterialTheme.motionScheme.fastSpatialSpec()),
         label = "ButtonScale"
     )
 
